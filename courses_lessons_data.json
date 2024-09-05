@@ -1,0 +1,62 @@
+[
+  {
+    "model": "courses_lessons.course",
+    "pk": 1,
+    "fields": {
+      "name": "Python",
+      "description": "Django",
+      "preview": ""
+    }
+  },
+  {
+    "model": "courses_lessons.course",
+    "pk": 2,
+    "fields": {
+      "name": "Python",
+      "description": "Flask",
+      "preview": ""
+    }
+  },
+  {
+    "model": "courses_lessons.course",
+    "pk": 3,
+    "fields": {
+      "name": "PHP",
+      "description": "Laravel",
+      "preview": ""
+    }
+  },
+  {
+    "model": "courses_lessons.lesson",
+    "pk": 1,
+    "fields": {
+      "name": "Django",
+      "description": "API+Postman",
+      "course": 1,
+      "preview": "",
+      "video": null
+    }
+  },
+  {
+    "model": "courses_lessons.lesson",
+    "pk": 2,
+    "fields": {
+      "name": "Flask",
+      "description": "Flask Stuff",
+      "course": 1,
+      "preview": "",
+      "video": null
+    }
+  },
+  {
+    "model": "courses_lessons.lesson",
+    "pk": 3,
+    "fields": {
+      "name": "Laravel",
+      "description": "Laravel Stuff",
+      "course": 2,
+      "preview": "",
+      "video": null
+    }
+  }
+]

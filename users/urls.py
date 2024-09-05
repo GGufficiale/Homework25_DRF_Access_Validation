@@ -1,0 +1,14 @@
+from django.urls import path
+from rest_framework.routers import SimpleRouter
+from users.apps import UsersConfig
+from users.views import UserViewSet, PaymentListAPIView, PaymentCreateAPIView
+
+app_name = UsersConfig.name
+router = SimpleRouter()
+router.register('', UserViewSet)
+
+urlpatterns = [
+    path('payment/',  PaymentListAPIView.as_view(), name='payment_list'),
+    path('payment/create/', PaymentCreateAPIView.as_view(), name='payment_create'),
+]
+urlpatterns += router.urls
