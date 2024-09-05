@@ -24,24 +24,24 @@ class UserCreateAPIView(generics.CreateAPIView):
         user.save()
 
 
-class UserRetrieveView(generics.RetrieveAPIView):
+class UserRetrieveAPIView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
 
 
-class UserUpdateView(generics.UpdateAPIView):
-    permission_classes = [IsAuthenticated]
-    serializer_class = UserSerializer
-    queryset = User.objects.all()
-
-
-class UserListView(generics.ListAPIView):
+class UserUpdateAPIView(generics.UpdateAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     queryset = User.objects.all()
 
 
-class UserDeleteView(generics.DestroyAPIView):
+class UserListAPIView(generics.ListAPIView):
+    permission_classes = [IsAuthenticated]
+    serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+class UserDeleteAPIView(generics.DestroyAPIView):
     permission_classes = [IsAuthenticated]
     serializer_class = UserSerializer
     queryset = User.objects.all()
