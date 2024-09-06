@@ -8,3 +8,11 @@ class IsModerator(permissions.BasePermission):
         """Метод ограничения доступа для всех кроме модераторов из админки"""
         return request.user.groups.filter(name='moderator').exists()
 
+
+class IsOwner(permissions.BasePermission):
+    """Проверяет, является ли юзер владельцем"""
+
+    def has_object_permission(self, request, view, obj):
+        if obj.owner == request.user:
+            return True
+        return False
