@@ -3,7 +3,7 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 from courses_lessons.models import Lesson, Course
-from users.models import User
+from users.models import User, Subscription
 
 
 class LessonTestCase(APITestCase):
@@ -54,3 +54,24 @@ class LessonTestCase(APITestCase):
         response = self.client.get(url)
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(Lesson.objects.all().count(), 1)
+
+
+class SubscriptionTestCase(APITestCase):
+    """Тест функционала работы подписки на обновления курса"""
+
+    def setUp(self):
+        self.user = User.objects.create(email="apitest@apitest.com")
+        self.course = Course.objects.create(name="Test Course", description="Test Course description")
+        self.subscription = Subscription.objects.create(user=self.user, course=self.course)
+        self.client.force_authenticate(user=self.user)
+
+    def test_subscription_create(self):
+        url = reverse("courses_lessons:course_subscribe")
+        data = {
+            "user": self.user.pk,
+            "course": self.course.pk,
+        }
+        response = self.client.post(url, data)
+        response.json()
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.json(), {"message": "Подписка отключена"})

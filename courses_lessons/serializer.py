@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
-from courses_lessons.models import Course, Lesson
+from courses_lessons.models import Course, Lesson, Subscription
 from courses_lessons.validators import YoutubeValidators
 
 
@@ -38,3 +38,9 @@ class CourseDetailSerializer(ModelSerializer):
     class Meta:
         model = Course
         fields = ('name', 'description', 'lesson_info', 'amount_of_lessons_in_course')
+
+
+class SubscriptionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Subscription
+        fields = "__all__"
