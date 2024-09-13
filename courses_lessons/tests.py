@@ -2,8 +2,8 @@ from django.urls import reverse
 from rest_framework import status
 from rest_framework.test import APITestCase
 
-from courses_lessons.models import Lesson, Course
-from users.models import User, Subscription
+from courses_lessons.models import Lesson, Course, Subscription
+from users.models import User
 
 
 class LessonTestCase(APITestCase):
