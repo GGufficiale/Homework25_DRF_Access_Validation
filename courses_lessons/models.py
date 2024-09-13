@@ -1,5 +1,7 @@
 from django.db import models
 
+from config.settings import AUTH_USER_MODEL
+
 NULLABLE = {'blank': True, 'null': True}
 
 
@@ -25,6 +27,8 @@ class Lesson(models.Model):
                                 help_text='Загрузите превью урока', **NULLABLE)
     video = models.TextField(max_length=100, verbose_name='Ссылка на видео', help_text='Вставьте ссылку на видео',
                              **NULLABLE)
+    owner = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.SET_NULL, **NULLABLE, verbose_name='владелец урока',
+                              help_text="укажите владельца урока")
 
     class Meta:
         verbose_name = 'Урок'

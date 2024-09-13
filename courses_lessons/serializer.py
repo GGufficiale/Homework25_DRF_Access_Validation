@@ -24,7 +24,7 @@ class CourseSerializer(ModelSerializer):
 class CourseDetailSerializer(ModelSerializer):
     # кастомный атрибут для вывода инфо по к-ву уроков в курсе
     amount_of_lessons_in_course = SerializerMethodField()
-    lesson_info = SerializerMethodField()
+    lesson_info = SerializerMethodField(read_only=True)
 
     def get_amount_of_lessons_in_course(self, course):
         """Метод подсчета к-ва уроков в курсе"""
