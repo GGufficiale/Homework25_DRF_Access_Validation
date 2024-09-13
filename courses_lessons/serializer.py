@@ -1,15 +1,21 @@
+from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 from rest_framework.serializers import ModelSerializer
 from courses_lessons.models import Course, Lesson
+from courses_lessons.validators import YoutubeValidators
 
 
 class LessonSerializer(ModelSerializer):
+    validators = [YoutubeValidators(field='video_url')]
+
     class Meta:
         model = Lesson
         fields = '__all__'
 
 
 class CourseSerializer(ModelSerializer):
+    validators = [YoutubeValidators(field='video_url')]
+
     class Meta:
         model = Course
         fields = '__all__'
