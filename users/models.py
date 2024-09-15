@@ -33,9 +33,14 @@ class Payment(models.Model):
                                     help_text='Выберите оплаченный урок', **NULLABLE)
     payment_method = models.CharField(max_length=35, choices=PAYMENT_METHOD_CHOICES, default='card',
                                       verbose_name='Способ оплаты', help_text='выберите способ оплаты', **NULLABLE)
+    amount = models.PositiveIntegerField(verbose_name='Сумма оплаты', help_text='укажите сумму оплаты', **NULLABLE)
+    session_id = models.CharField(max_length=255, verbose_name='ID сессии', help_text='укажите ID сессии', **NULLABLE)
+    link = models.URLField(max_length=400, verbose_name='Ссылка на оплату', help_text='укажите ссылку на оплату',
+                           **NULLABLE)
 
     def __str__(self):
-        return f'{self.user}: {self.payment_date}, {self.course_paid if self.course_paid else self.lesson_paid}'
+        return (f'{self.user}: {self.payment_date}, {self.course_paid if self.course_paid else self.lesson_paid}, '
+                f'{self.amount}')
 
     class Meta:
         verbose_name = 'платеж'
