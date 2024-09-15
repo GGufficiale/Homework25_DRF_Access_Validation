@@ -146,3 +146,9 @@ SPECTACULAR_SETTINGS = {
     'SERVE_INCLUDE_SCHEMA': False,
     # OTHER SETTINGS
 }
+
+STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
+
+# ссылки на ключ и урл на сайт, где запрашивается курс рубля к доллару
+CURRENCY_API_URL = 'https://api.currencyapi.com/'
+CURRENCY_API_KEY = os.getenv('CURRENCY_API_KEY')

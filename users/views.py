@@ -3,6 +3,7 @@ from rest_framework.filters import SearchFilter, OrderingFilter
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from users.models import Payment, User
 from users.serializer import PaymentSerializer, UserSerializer
+from users.services import create_stripe_price, create_stripe_session, convert_currencies
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -58,3 +59,13 @@ class PaymentListAPIView(generics.ListAPIView):
 class PaymentCreateAPIView(generics.CreateAPIView):
     serializer_class = PaymentSerializer
     queryset = Payment.objects.all()
+
+    def perform_create(self, serializer):
+        """Метод для проведения оплаты за курс"""
+        payment = serializer.save(user=self.request.user)
+        amount_in_rub = convert_currencies(payment.amount)
+        price = create_stripe_price(amount_in_rub)
+        session_id, payment_link = create_stripe_session(price)
+        payment.session_id = session_id
+        payment.link = payment_link
+        payment.save()
