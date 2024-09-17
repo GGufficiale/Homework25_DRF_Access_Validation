@@ -34,12 +34,12 @@ def convert_currencies(rub_price):
     return rub_price
 
 
-def create_stripe_price(amount):
+def create_stripe_price(product_id, amount):
     """Метод создания цены в Stripe"""
     return stripe.Price.create(
         currency="rub",
         unit_amount=amount * 100,  # умножаем из-за копеек
-        product_data={"name": "Payment"},
+        product_data=product_id,
     )
 
 
