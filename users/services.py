@@ -13,7 +13,7 @@ def create_stripe_product(instance):
     """Создаем stripe продукт"""
     title_product = f'{instance.course_paid}' if instance.course_paid else f'{instance.lesson_paid}'
     stripe_product = stripe.Product.create(name=f"{title_product}")
-    return stripe_product.get('name')
+    return stripe_product.get('id')
 
 
 # def convert_rub_to_usd(amount):
