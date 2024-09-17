@@ -24,7 +24,7 @@ class User(AbstractUser):
 class Payment(models.Model):
     PAYMENT_METHOD_CHOICES = [('cash', 'наличные'), ('card', 'банковский перевод')]
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='пользователь',
-                             help_text='Выберите пользователя')
+                             help_text='Выберите пользователя', **NULLABLE)
     payment_date = models.DateField(auto_now=True, verbose_name='дата оплаты', help_text='Введите дату оплаты',
                                     **NULLABLE)
     course_paid = models.ForeignKey(Course, on_delete=models.CASCADE, verbose_name='оплаченный курс',
