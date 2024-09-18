@@ -64,8 +64,8 @@ class PaymentCreateAPIView(generics.CreateAPIView):
         """Метод для проведения оплаты за курс"""
         payment = serializer.save(user=self.request.user)
         # amount_in_rub = convert_currencies(payment.amount)
-        product_id = create_stripe_product(payment)
-        price = create_stripe_price(product_id, payment.amount)
+        product = create_stripe_product(payment)
+        price = create_stripe_price(product, payment.amount)
         session_id, payment_link = create_stripe_session(price)
         payment.session_id = session_id
         payment.link = payment_link
