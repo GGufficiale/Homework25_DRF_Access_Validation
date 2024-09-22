@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'django_filters',
     'drf_yasg',
     'drf_spectacular',
+    'django_celery_beat',
 
     'users',
     'courses_lessons',
@@ -152,3 +153,23 @@ STRIPE_API_KEY = os.getenv('STRIPE_API_KEY')
 # ссылки на ключ и урл на сайт, где запрашивается курс рубля к доллару
 CURRENCY_API_URL = 'https://api.currencyapi.com/'
 CURRENCY_API_KEY = os.getenv('CURRENCY_API_KEY')
+
+# Настройки кеширования (Redis)
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.redis.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379",
+    }
+}
+
+# Настройки для Celery
+# URL-адрес брокера сообщений
+CELERY_BROKER_URL = 'redis://127.0.0.1:6379/0'  # Redis, который по умолчанию работает на порту 6379
+# URL-адрес брокера результатов, также Redis
+CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379/0'
+CELERY_BEAT_SCHEDULE = {
+    'task-name': {
+        'task': 'myapp.tasks.my_task',  # Путь к задаче
+        'schedule': timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
+    },
+}
