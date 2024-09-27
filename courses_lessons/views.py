@@ -8,6 +8,7 @@ from courses_lessons.models import Course, Lesson, Subscription
 from courses_lessons.paginations import CustomPagination
 from courses_lessons.serializer import CourseSerializer, LessonSerializer, CourseDetailSerializer, \
     SubscriptionSerializer
+from courses_lessons.tasks import send_email
 from users.permissions import IsModerator, IsOwner
 
 
@@ -34,6 +35,13 @@ class CourseViewSet(ModelViewSet):
         elif self.action == 'destroy':
             self.permission_classes = (~IsModerator | IsOwner,)
         return super().get_permissions()
+
+    def perform_update(self, serializer):
+        """Метод отправки сообщений об обновлении материалов курса"""
+        course = serializer.save()
+        owner = self.request.user
+        send_email.delay(owner.email)
+        course.save()
 
 
 class LessonCreateAPIView(CreateAPIView):

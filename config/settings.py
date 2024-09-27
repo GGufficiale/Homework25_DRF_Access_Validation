@@ -173,3 +173,30 @@ CELERY_BEAT_SCHEDULE = {
         'schedule': timedelta(minutes=10),  # Расписание выполнения задачи (например, каждые 10 минут)
     },
 }
+
+EMAIL_HOST = os.getenv("EMAIL_HOST")
+EMAIL_PORT = os.getenv("EMAIL_PORT")
+EMAIL_HOST_USER = os.getenv("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.getenv("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = os.getenv("EMAIL_USE_TLS")
+EMAIL_USE_SSL = os.getenv("EMAIL_USE_SSL")
+
+SERVER_EMAIL = EMAIL_HOST_USER
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+""" Настройка CORS - механизм безопасности браузера, который ограничивает запросы, отправляемые с веб-страницы в один 
+домен, к ресурсам, расположенным на другом домене. Это важно для защиты пользователей от несанкционированного доступа 
+к данным на разных доменах. """
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_WHITELIST = ['http://localhost:8080', ]
+CORS_ALLOWED_ORIGINS = [
+    'https://read-only.example.com',  # Замените на адрес вашего фронтенд-сервера
+    'https://read-and-write.example.com'
+]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://read-and-write.example.com",  # Замените на адрес вашего фронтенд-сервера
+    # и добавьте адрес бэкенд-сервера
+]
