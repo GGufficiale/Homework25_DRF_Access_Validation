@@ -12,7 +12,5 @@ def check_user_activity():
     """
     now = timezone.now()
     month_ago = now - relativedelta(months=1)
-    inactive_users = User.objects.filter(last_login__lt=month_ago, is_active=True)
-    for user in inactive_users:
-        user.is_active = False
-        user.save()
+    qs = User.objects.filter(last_login__lt=month_ago, is_active=True)
+    qs.update(is_active=False)
